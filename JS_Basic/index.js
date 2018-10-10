@@ -1,75 +1,52 @@
-//Section 6 Arrays
+//Section 7 Function
 /*
-    const does not prevent modify the object, just can not reassign the whole object
-    ES6 syntax for fining reference type element in array
-
-    Reassign an array equals to create a new object, reference is changed and points to a new object in memory! the original array is NOT garbage collected if it was referenced by another array
-
-    combine or slice arrays - primitives are copied by value; object are copied by reference (meaning pointing to same objecgt reference)
+    declaration vs expression
+    rest operator
+    default value in function]
 */
 
-//Adding Elements
-let numbers = [3,4];
-//end
-numbers.push(5,6);
-//beginning
-numbers.unshift(1,2);
-//middle
-numbers.splice(3,2,100,101);
-console.log(numbers);
 
-//Finding elements - primitives
-console.log(numbers.indexOf(100,0));
-console.log(numbers.lastIndexOf(110));
 
-//Finding elements - reference types
-const courses =[
-    {title:'ab', length:123},
-    {title:'gg', length:567}
-];
-//call back function
-const course = courses.find(function (course){
-    return course.title==='ab';
-});
-console.log(course);    
-const course1 = courses.findIndex(function (course){
-    return course.title==='ab';
-});
-console.log(course1); 
+//Function delaration 
+//function xx(xx) {}
 
-//!! new ES6 syntax
-const course2 = courses.find(course => course.title=='gg');
-console.log(course2);   
+//Anonymous Function expression
+//let x = function (){};
+//let y = x; --- both variables refer to same object
+//x; same as y;
 
-//Removing elements
-//end
-let gone = numbers.pop();
-console.log(gone);
-//beginning
-gone = numbers.shift();
-console.log(gone);
-console.log(numbers);
-gone = numbers.splice(2, 1);
-console.log(gone);
+//difference: we can call a function before its declaration BUT we can not refer to a variable before it is defined and assigned to be a function
+//this is called Hoisting in JS!!
+//the js engine moves the function delaration above so we can call the function anywhere before the definition
 
-//Emptying an Array
-let another = numbers;
-numbers.push(200);
-console.log(numbers, another);  
+//JS is a dynamic language (chagne the variable type after it is initiated)
 
-//solution1 (this solution works if there is only one reference)
-//numbers =[];  //!! note: numbers is pointing a new reference, it is different from another!!
-//console.log(numbers, another); 
+//any function has an argument object (an array with {index: argumentValue} objects)
+//this is good for random number of argument without predefine
+function sum(){
+    let t=0;
+    for (let v of arguments){
+        t += v;
+    }
+    return t;
+}
+console.log(sum(2,5,6,6,9));
 
-//solution 2 (preferred solution)
-//numbers.length=0;
-//console.log(numbers, another); // now both arrays can be truncated
+//rest operator
+function sum1(...args){
+    return args.reduce( (total,cur)=> total +=cur);
+}
+console.log(sum1(2,5,6,6,9));
 
-//solution 3: 
-//numbers.splice(0, numbers.length);  
+//default
+function interest(principal, rate =3.5, year=5){}
 
-//Combining and slicing arrays
-//fistArr.concat(secondArr);
-//myArr.slice(startIndex, endIndex)
+//..... here to exercise 1 was done in bnym laptop
 
-//Test Git4
+//Exercise 2 calculate area of circle 
+const circle ={
+    radius:2,
+    get area() { return Math.PI * Math.pow(this.radius,2); }
+};
+circle.radius= 2;
+console.log('circle',circle.area);
